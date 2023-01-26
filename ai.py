@@ -58,9 +58,7 @@ class AI:
             return Move()
         if depth == 0 or game.status() != GAME_IN_PROGRESS or len(possible_moves) == 0:
             if self.evaluation_fn == "simple":
-                game.simple_evaluation_fn()
-            else:
-                game.advanced_evaluation_fn(player)
+                game.evaluation()
             return game.last_move
         if player == MAXIMIZING_PLAYER:
             max_evaluation = Move(value=float('-inf'))
@@ -69,9 +67,7 @@ class AI:
                     temp_game = deepcopy(game)
                     temp_game.apply_move(player, [move.x, move.y])
                     if self.evaluation_fn == "simple":
-                        temp_game.simple_evaluation_fn()
-                    else:
-                        temp_game.advanced_evaluation_fn(player)
+                        temp_game.evaluation_fn()
                     move.value = temp_game.last_move.value
                     del temp_game
                 possible_moves = sorted(possible_moves, key=lambda x: x.value, reverse=True)
@@ -96,9 +92,7 @@ class AI:
                     temp_game = deepcopy(game)
                     temp_game.apply_move(player, [move.x, move.y])
                     if self.evaluation_fn == "simple":
-                        temp_game.simple_evaluation_fn()
-                    else:
-                        temp_game.advanced_evaluation_fn(player)
+                        temp_game.evaluation_fn()
                     move.value = temp_game.last_move.value
                     del temp_game
                 possible_moves = sorted(possible_moves, key=lambda x: x.value)
