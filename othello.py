@@ -122,3 +122,21 @@ class Othello:
                 self.white_score = self.n * self.n - self.black_score
                 return WHITE_WON
         return GAME_IN_PROGRESS
+
+    def evaluation(self):
+        game_status = self.status()
+        if game_status == GAME_IN_PROGRESS:
+            if MAXIMIZING_PLAYER == WHITE:
+                self.last_move.value = self.white_score - self.black_score
+            else:
+                self.last_move.value = self.black_score - self.white_score
+        elif game_status == BLACK_WON:
+            if MAXIMIZING_PLAYER == BLACK:
+                self.last_move.value = 100
+            else:
+                self.last_move.value = -100
+        elif game_status == WHITE_WON:
+            if MAXIMIZING_PLAYER == WHITE:
+                self.last_move.value = 100
+            else:
+                self.last_move.value = -100
