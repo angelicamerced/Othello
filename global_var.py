@@ -8,9 +8,9 @@ LAST_MOVE = 4
 GAME_IN_PROGRESS = 0
 BLACK_WON = 2
 WHITE_WON = 3
-WHITE_TILE = "./assets/white_tile.png"
-BLACK_TILE = "./assets/black_tile.png"
-NEXT_MOVE_IMG = "./assets/next_move_tile.png"
+WHITE_TILE = "./images/white_tile.png"
+BLACK_TILE = "./images/black_tile.png"
+NEXT_MOVE_IMG = "./images/next_move_tile.png"
 DIRECTIONS = [
     "north",
     "south",

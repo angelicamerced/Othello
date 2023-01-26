@@ -67,7 +67,7 @@ class AI:
                     temp_game = deepcopy(game)
                     temp_game.apply_move(player, [move.x, move.y])
                     if self.evaluation_fn == "simple":
-                        temp_game.evaluation_fn()
+                        temp_game.evaluation()
                     move.value = temp_game.last_move.value
                     del temp_game
                 possible_moves = sorted(possible_moves, key=lambda x: x.value, reverse=True)
@@ -92,7 +92,7 @@ class AI:
                     temp_game = deepcopy(game)
                     temp_game.apply_move(player, [move.x, move.y])
                     if self.evaluation_fn == "simple":
-                        temp_game.evaluation_fn()
+                        temp_game.evaluation()
                     move.value = temp_game.last_move.value
                     del temp_game
                 possible_moves = sorted(possible_moves, key=lambda x: x.value)
