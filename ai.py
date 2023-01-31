@@ -1,4 +1,3 @@
-import time
 from copy import deepcopy
 from move import Move
 from global_var import MAXIMIZING_PLAYER, GAME_IN_PROGRESS, WHITE, BLACK
@@ -16,7 +15,6 @@ class AI:
         self.nodes_per_level = [0]*(self.depth + 1)
         self.total_branching_factor = 0
         self.total_effective_branching_factor = 0
-        self.total_execution_time = 0
 
     def calculate_effective_branching_factor(self):
         effective_branching_factors = []
@@ -26,7 +24,7 @@ class AI:
             effective_branching_factors.append(self.nodes_per_level[i] / self.nodes_per_level[i - 1])
         return sum(effective_branching_factors) / len(effective_branching_factors)
 
-    def log_data(self, player, move, time_consumed):
+    def log_data(self, player, move):
         player_name = "BLACK" if player == BLACK else "WHITE"
         self.turns += 1
         branching_factor = 0
@@ -36,19 +34,16 @@ class AI:
         effective_branching_factor = self.calculate_effective_branching_factor()
         self.total_branching_factor += branching_factor
         self.total_effective_branching_factor += effective_branching_factor
-        self.total_execution_time += time_consumed
         self.branches_evaluated = 0
         self.nodes_per_level = [0]*(self.depth + 1)
 
     def get_move(self, game, player):
         opponent = WHITE if player == BLACK else BLACK
-        start_time = time.time()
         move = self.alpha_beta_pruning(game, self.depth, player, opponent)
-        time_consumed = time.time() - start_time
         if move.x != -1 and move.y != -1:
-            self.log_data(player, move, time_consumed)
+            self.log_data(player, move)
             return [move.x, move.y]
-        self.log_data(player, None, time_consumed)
+        self.log_data(player, None)
         return None
 
     def alpha_beta_pruning(self, game, depth, player, opponent, alpha=float('-inf'), beta=float('inf')):
